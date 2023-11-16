@@ -1,0 +1,61 @@
+{
+  "name": "razroo-nextjs-starter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/razroo-nextjs-starter",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/razroo-nextjs-starter"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/razroo-nextjs-starter"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "razroo-nextjs-starter:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "razroo-nextjs-starter:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "razroo-nextjs-starter:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "razroo-nextjs-starter:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/razroo-nextjs-starter/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/razroo-nextjs-starter/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
